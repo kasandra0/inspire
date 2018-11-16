@@ -1,0 +1,9 @@
+#body{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+#todo-frame{
+  background-color: rgba(207, 26, 26, 0.5);
+  color:white;
+}

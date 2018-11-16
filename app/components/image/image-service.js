@@ -7,14 +7,17 @@ const imgApi = axios.create({
 	baseURL: apiUrl,
 	timeout: 3000
 });
+function handleError(err) {
+	throw new Error(err);
+}
 
 export default class ImageService {
 	getImage(callWhenDone) {
-		// ^^^^^^^ How do you call this function?
-		console.log("Looking for a good pic")
 		imgApi().then(res => {
-			console.log('Image Data:', res.data)
-			callWhenDone(res.data)
+			let imageArr = res.data.images;
+			let imageIndex = Math.floor(imageArr.length * Math.random()) - 1
+			callWhenDone(imageArr[imageIndex].url)
 		})
+			.catch(handleError)
 	}
 }

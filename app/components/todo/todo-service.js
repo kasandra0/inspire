@@ -1,7 +1,8 @@
+import Todo from "../../models/todo.js";
 
 
 const todoApi = axios.create({
-	baseURL: 'https://bcw-sandbox.herokuapp.com/api/YOURNAME/todos/',
+	baseURL: 'https://bcw-sandbox.herokuapp.com/api/kasandra/todos/',
 	timeout: 3000
 });
 
@@ -15,39 +16,42 @@ let todoList = []
 export default class TodoService {
 
 	getTodos(draw) {
-		console.log("Getting the Todo List")
 		todoApi.get('')
-			.then((res) => { // <-- WHY IS THIS IMPORTANT????
-
+			.then((res) => {
+				console.log('ToDo' + res)
+				let todoList = res.data.data
+				todoList = todoList.map(todoData => new Todo(todoData))
+				draw(todoList)
 			})
 			.catch(logError)
 	}
 
-	addTodo(todo) {
-		// WHAT IS THIS FOR???
+	addTodo(todo, callback) {
 		todoApi.post('', todo)
-			.then(function (res) { // <-- WHAT DO YOU DO AFTER CREATING A NEW TODO?
-
+			.then(function (res) {
+				callback()
 			})
 			.catch(logError)
 	}
 
-	toggleTodoStatus(todoId) {
+	toggleTodoStatus(todo, callback) {
 		// MAKE SURE WE THINK THIS ONE THROUGH
 		//STEP 1: Find the todo by its index **HINT** todoList
 
-		var todo = {} ///MODIFY THIS LINE
+		//var todo = {completed: } ///MODIFY THIS LINE
 
 		//STEP 2: Change the completed flag to the opposite of what is is **HINT** todo.completed = !todo.completed
-		todoApi.put(todoId, todo)
+		todoApi.put(todo._id, todo)//MARK <<-----------------------
 			.then(function (res) {
 				//DO YOU WANT TO DO ANYTHING WITH THIS?
+				callback()//MARK <<-----------------------
 			})
 			.catch(logError)
 	}
 
-	removeTodo() {
+	removeTodo(todoId) {
 		// Umm this one is on you to write.... The method is a DELETE
+		todoApi.delete('', todoId)
 
 	}
 
