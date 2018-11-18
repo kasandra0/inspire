@@ -9,8 +9,11 @@ export default class QuoteController {
 	}
 
 	getQuote() {
-		qs.getQuote(function (quote) {
-			console.log('What is the quote', quote)
-		})
+		qs.getQuote(drawQuote)
 	}
+}
+function drawQuote(quote, author) {
+	let template = quote + ' -' + author;
+
+	document.getElementById('quote-frame').innerText = template;
 }

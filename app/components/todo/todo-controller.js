@@ -14,19 +14,17 @@ function draw(todos) {
 	//WHAT IS MY PURPOSE?
 	//BUILD YOUR TODO TEMPLATE HERE
 	//DONT FORGET TO LOOP
-	let template = `To Do List: <ul>`
+	let template = `To Do List: (${todos.length})<ul>`
 	todos.forEach(todo => {
-		let checked = ' '
-		if (todo.completed) {
-			checked = 'checked'
-		}
+		let checked = ''
+		if (todo.completed) { checked = 'checked' }
 		template += `
 			<li>
 			<input type="checkbox" name="status" id="${todo._id}" ${checked} onchange="app.controllers.todoController.toggleTodoStatus('${todo._id}')">
 			${todo.description}
+			<button onclick="app.controllers.todoController.removeTodo('${todo._id}')">delete</button>
 			</li>
 			`
-		console.log(template)
 	})
 	document.getElementById('todo-list').innerHTML = '</ul>' + template;
 }
@@ -49,7 +47,6 @@ export default class TodoController {
 		e.preventDefault()
 		// TAKE THE INFORMATION FORM THE FORM
 		var form = e.target
-		debugger
 		let todo = {
 			description: form.inputText.value
 		};
@@ -62,19 +59,17 @@ export default class TodoController {
 
 	toggleTodoStatus(todoId) { //MARK <<-----------------------
 		// asks the service to edit the todo status
-		let updateData = {
+		let updatedData = {
 			completed: document.getElementById(todoId).checked,
 			_id: todoId
 		}
-		_todoService.toggleTodoStatus(updateData, getTodos) //MARK <<-----------------------
+		_todoService.toggleTodoStatus(updatedData, getTodos) //MARK <<-----------------------
 		// YEP THATS IT FOR ME
 	}
 
 	removeTodo(todoId) {
 		// ask the service to run the remove todo with this id
-		debugger
-		console.log(todoId)
-		_todoService.removeTodo(todoId)
+		_todoService.removeTodo(todoId, getTodos)
 		// ^^^^ THIS LINE OF CODE PROBABLY LOOKS VERY SIMILAR TO THE toggleTodoStatus
 	}
 

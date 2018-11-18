@@ -18,7 +18,6 @@ export default class TodoService {
 	getTodos(draw) {
 		todoApi.get('')
 			.then((res) => {
-				console.log('ToDo' + res)
 				let todoList = res.data.data
 				todoList = todoList.map(todoData => new Todo(todoData))
 				draw(todoList)
@@ -41,18 +40,14 @@ export default class TodoService {
 		//var todo = {completed: } ///MODIFY THIS LINE
 
 		//STEP 2: Change the completed flag to the opposite of what is is **HINT** todo.completed = !todo.completed
-		todoApi.put(todo._id, todo)//MARK <<-----------------------
-			.then(function (res) {
-				//DO YOU WANT TO DO ANYTHING WITH THIS?
-				callback()//MARK <<-----------------------
-			})
+		todoApi.put(todo._id, todo)
+			.then(callback)
 			.catch(logError)
 	}
 
-	removeTodo(todoId) {
-		// Umm this one is on you to write.... The method is a DELETE
-		todoApi.delete('', todoId)
-
+	removeTodo(todoId, callback) {
+		todoApi.delete(todoId)
+			.then(callback)
+			.catch(logError)
 	}
-
 }

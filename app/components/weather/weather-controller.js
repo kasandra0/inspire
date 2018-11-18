@@ -10,12 +10,11 @@ export default class WeatherController {
 		this.getWeather()
 	}
 	getWeather() {
-		weatherService.getWeather(temp => {
-			console.log(temp);
+		weatherService.getWeather(kelvin => {
+			let fahren = Math.floor(kelvin * 1.8 - 459.67);
 			//What can you do with this weather object?
-			console.log("Current Temp: " + temp)
-			let template = `${temp} F`
-			document.getElementById('weather').innerText = template
+			let template = `${fahren} F`
+			document.getElementById('weather-frame').innerText = template
 		})
 	}
 }
