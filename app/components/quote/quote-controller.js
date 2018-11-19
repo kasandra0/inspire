@@ -11,9 +11,6 @@ export default class QuoteController {
 	getQuote() {
 		qs.getQuote(drawQuote)
 	}
-	showAuthor() {
-
-	}
 }
 function drawQuote(quoteData) {
 	quote = quoteData;

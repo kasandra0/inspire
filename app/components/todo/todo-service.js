@@ -34,12 +34,6 @@ export default class TodoService {
 	}
 
 	toggleTodoStatus(todo, callback) {
-		// MAKE SURE WE THINK THIS ONE THROUGH
-		//STEP 1: Find the todo by its index **HINT** todoList
-
-		//var todo = {completed: } ///MODIFY THIS LINE
-
-		//STEP 2: Change the completed flag to the opposite of what is is **HINT** todo.completed = !todo.completed
 		todoApi.put(todo._id, todo)
 			.then(callback)
 			.catch(logError)

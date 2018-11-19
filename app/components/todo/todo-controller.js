@@ -12,9 +12,6 @@ function getTodos() {
 }
 
 function draw(todos) {
-	//WHAT IS MY PURPOSE?
-	//BUILD YOUR TODO TEMPLATE HERE
-	//DONT FORGET TO LOOP
 	let template = `To Do List: (${todos.length})<ul>`
 	todos.forEach(todo => {
 		let checked = ''
@@ -35,13 +32,6 @@ export default class TodoController {
 	constructor() {
 		_todoService.getTodos(draw)
 	}
-	// You will need four methods
-	// getTodos should request your api/todos and give an array of todos to your callback fn
-	// addTodo takes in a todo and posts it to the server
-	// toggleTodoStatus takes in a todo marks its status as completed and puts it to the server
-	// removeTodo takes in a todoId and sends a delete request to the server
-	// **** HINT: Everytime you make a change to any todo don't forget to get the todo list again
-
 	addTodoFromForm(e) {
 		e.preventDefault()
 		// TAKE THE INFORMATION FORM THE FORM
@@ -63,22 +53,20 @@ export default class TodoController {
 			_id: todoId
 		}
 		_todoService.toggleTodoStatus(updatedData, getTodos)
-		// YEP THATS IT FOR ME
 	}
 
 	removeTodo(todoId) {
 		// ask the service to run the remove todo with this id
 		_todoService.removeTodo(todoId, getTodos)
-		// ^^^^ THIS LINE OF CODE PROBABLY LOOKS VERY SIMILAR TO THE toggleTodoStatus
 	}
 	// could not get Bootstrap Collapse to work!
 	toggleDisplay() {
 		_display = !_display;
 		if (_display) {
-			document.getElementById('todo-frame').style.height = 'auto'
+			document.getElementById('todo-frame').style.display = 'block'
 		}
 		else {
-			document.getElementById('todo-frame').style.height = '0'
+			document.getElementById('todo-frame').style.display = 'none'
 		}
 	}
 
