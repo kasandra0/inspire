@@ -14,17 +14,19 @@ function getTodos() {
 function draw(todos) {
 	let template = `To Do List: (${todos.length})<ul>`
 	todos.forEach(todo => {
-		let checked = ''
-		if (todo.completed) { checked = 'checked' }
+		let checked = '', strikeText = '';
+		if (todo.completed) { checked = 'checked'; strikeText = 'class= "strikeText"' }
 		template += `
 			<li>
 			<input type="checkbox" name="status" id="${todo._id}" ${checked} onchange="app.controllers.todoController.toggleTodoStatus('${todo._id}')">
-			${todo.description}
+			<span ${strikeText}> ${todo.description}</span>
 			<i class="far fa-times-circle" onclick="app.controllers.todoController.removeTodo('${todo._id}')"></i>
 			</li>
 			`
+		// 
 	})
 	document.getElementById('todo-list').innerHTML = '</ul>' + template;
+	console.log(template)
 }
 
 

@@ -38,7 +38,9 @@ body{
 }
 #todo-list{
   padding: 5px;
-
+}
+.strikeText{
+  text-decoration: line-through;
 }
 #form-field{
   background: none;
