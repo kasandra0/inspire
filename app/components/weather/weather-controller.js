@@ -10,11 +10,13 @@ export default class WeatherController {
 		this.getWeather()
 	}
 	getWeather() {
-		weatherService.getWeather(kelvin => {
-			let fahren = Math.floor(kelvin * 1.8 - 459.67);
+		weatherService.getWeather(weather => {
+			let fahren = Math.floor(weather.main.temp * 1.8 - 459.67);
 			//What can you do with this weather object?
 			let template = `${fahren} F`
-			document.getElementById('weather-frame').innerText = template
+			let icon = weather.weather[0].icon
+			template += `<img src="http://openweathermap.org/img/w/${icon}.png"/>`
+			document.getElementById('weather-frame').innerHTML = template
 		})
 	}
 }

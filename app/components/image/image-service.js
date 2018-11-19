@@ -16,7 +16,7 @@ export default class ImageService {
 		imgApi().then(res => {
 			let imageArr = res.data.images;
 			let imageIndex = Math.floor(imageArr.length * Math.random()) - 1
-			callWhenDone(imageArr[imageIndex].url)
+			callWhenDone(imageArr[imageIndex])
 		})
 			.catch(handleError)
 	}

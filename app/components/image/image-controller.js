@@ -7,8 +7,9 @@ export default class ImageController {
   constructor() {
     _imageService.getImage(this.drawImage)
   }
-  drawImage(imgurl) {
-    document.body.style.backgroundImage = `url("${imgurl}")`
+  drawImage(img) {
+    document.getElementById('image-data').innerText = `source: ${img.site}`
+    document.body.style.backgroundImage = `url("${img.url}")`
   }
 }
 

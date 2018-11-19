@@ -3,6 +3,7 @@ import Todo from "../../models/todo.js";
 
 
 var _todoService = new TodoService
+let _display = false;
 
 // Use this getTodos function as your callback for all other edits
 function getTodos() {
@@ -22,7 +23,7 @@ function draw(todos) {
 			<li>
 			<input type="checkbox" name="status" id="${todo._id}" ${checked} onchange="app.controllers.todoController.toggleTodoStatus('${todo._id}')">
 			${todo.description}
-			<button onclick="app.controllers.todoController.removeTodo('${todo._id}')">delete</button>
+			<i class="far fa-times-circle" onclick="app.controllers.todoController.removeTodo('${todo._id}')"></i>
 			</li>
 			`
 	})
@@ -41,8 +42,6 @@ export default class TodoController {
 	// removeTodo takes in a todoId and sends a delete request to the server
 	// **** HINT: Everytime you make a change to any todo don't forget to get the todo list again
 
-
-
 	addTodoFromForm(e) {
 		e.preventDefault()
 		// TAKE THE INFORMATION FORM THE FORM
@@ -57,13 +56,13 @@ export default class TodoController {
 		//^^^^^^^ EXAMPLE OF HOW TO GET YOUR TOODOS AFTER AN EDIT
 	}
 
-	toggleTodoStatus(todoId) { //MARK <<-----------------------
+	toggleTodoStatus(todoId) {
 		// asks the service to edit the todo status
 		let updatedData = {
 			completed: document.getElementById(todoId).checked,
 			_id: todoId
 		}
-		_todoService.toggleTodoStatus(updatedData, getTodos) //MARK <<-----------------------
+		_todoService.toggleTodoStatus(updatedData, getTodos)
 		// YEP THATS IT FOR ME
 	}
 
@@ -72,7 +71,16 @@ export default class TodoController {
 		_todoService.removeTodo(todoId, getTodos)
 		// ^^^^ THIS LINE OF CODE PROBABLY LOOKS VERY SIMILAR TO THE toggleTodoStatus
 	}
-
+	// could not get Bootstrap Collapse to work!
+	toggleDisplay() {
+		_display = !_display;
+		if (_display) {
+			document.getElementById('todo-frame').style.height = 'auto'
+		}
+		else {
+			document.getElementById('todo-frame').style.height = '0'
+		}
+	}
 
 
 }

@@ -13,7 +13,7 @@ export default class WeatherService {
 		console.log('Calling the Weatherman')
 		weatherApi().then(function (res) {
 			// localStorage.setItem('weather', JSON.stringify(res.data))
-			callWhenDone(res.data.main.temp);
+			callWhenDone(res.data);
 		})
 	}
 }
